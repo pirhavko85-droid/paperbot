@@ -114,3 +114,18 @@ body{margin:0;min-width:0;background:#111c26;-webkit-text-size-adjust:100%}
 #paperbot-app .pc-chart svg{height:auto;aspect-ratio:340/196}#paperbot-app .pc-balance>div:first-child{display:block}#paperbot-app .pc-balance>div:first-child>.pc-tiny{display:none}#paperbot-app .pc-capital{flex-wrap:nowrap}
 
 #paperbot-app .pc-chart .pc-grid{stroke:var(--pc-line);stroke-width:.6;opacity:.55}#paperbot-app .pc-chart .pc-subtabs button{font-size:11px;min-width:0}#paperbot-app .pc-dividend-right{max-width:57%;text-align:right}#paperbot-app .pc-dividend-right .pc-tiny{font-size:10px;white-space:normal}
+
+/* Compact detail is shared by stock links in every tab. */
+#paperbot-app .pc-stock-detail{display:flex;flex-direction:column;gap:4px}
+#paperbot-app .pc-stock-detail>button{min-height:28px;padding:2px 0;text-align:left;font-size:12px}
+#paperbot-app .pc-stock-detail .pc-detail-title{gap:7px;margin:0}
+#paperbot-app .pc-stock-detail .pc-detail-title h2{font-size:16px;line-height:24px}
+#paperbot-app .pc-stock-detail>.pc-panel{padding:6px 9px}
+#paperbot-app .pc-rule{padding:4px 0;font-size:12px}
+#paperbot-app .pc-stock-detail .pc-rule{padding:3px 0;line-height:18px}
+#paperbot-app .pc-stock-detail>.pc-small{font-size:11px;line-height:14px}
+#paperbot-app .pc-stock-detail .pc-chart svg{margin:3px 0}
+#paperbot-app .pc-stock-detail .pc-chart .pc-tiny{font-size:10px;line-height:13px}
+#paperbot-app .pc-stock-detail>.pc-tiny{font-size:10px;line-height:13px}
+#paperbot-app .pc-event{padding:6px 8px;gap:7px}
+#paperbot-app .pc-event-icon{width:23px;height:23px}
