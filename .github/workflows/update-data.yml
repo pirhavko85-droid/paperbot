@@ -1,8 +1,14 @@
 name: Refresh MOEX and publish Pages
 on:
   schedule:
-    - cron: '30 16 * * 1-5'
+    - cron: '30 21 * * *'
   workflow_dispatch:
+    inputs:
+      command:
+        description: 'Команда автономной виртуальной торговли'
+        type: choice
+        options: [run, pause, resume]
+        default: run
   push:
     branches: [main]
 permissions:
@@ -24,13 +30,21 @@ jobs:
         run: node --test tests/*.test.cjs
       - name: Collect MOEX snapshot
         run: node scripts/collect.cjs
+      - name: Collect dividend history
+        run: node scripts/dividends.cjs
+      - name: Advance virtual portfolios
+        id: paper
+        continue-on-error: true
+        env:
+          PAPER_COMMAND: ${{ inputs.command || 'run' }}
+        run: node scripts/paper.cjs
       - name: Save snapshot
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/latest.json
+          git add data/latest.json data/dividends.json data/paper-state.json
           if ! git diff --cached --quiet; then
-            git commit -m 'data: refresh MOEX snapshot [skip ci]'
+            git commit -m 'data: refresh quotes, dividends and virtual portfolios [skip ci]'
             git push
           fi
       - name: Build GitHub Pages from main
@@ -47,3 +61,8 @@ jobs:
               if (build.data.status === 'errored') throw new Error(build.data.error?.message || 'Pages build failed');
             }
             throw new Error('Pages build timed out');
+      - name: Report blocked virtual trading
+        if: steps.paper.outcome == 'failure'
+        run: |
+          echo 'Virtual trading blocked. See data/paper-state.json health. Public state has been updated.'
+          exit 1
