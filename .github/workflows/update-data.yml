@@ -1,0 +1,59 @@
+name: Refresh MOEX and publish Pages
+on:
+  schedule:
+    - cron: '30 16 * * 1-5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: paperbot-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify application
+        run: node --test tests/*.test.cjs
+      - name: Collect MOEX snapshot
+        run: node scripts/collect.cjs
+      - name: Save snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: refresh MOEX snapshot [skip ci]'
+            git push
+          fi
+      - name: Prepare public files
+        run: |
+          mkdir public
+          cp index.html research.html market.html config.js data.js candles.js center.js module-ui.js public/
+          cp -r data public/
+      - name: Use Actions as the Pages source
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const page = await github.request('GET /repos/{owner}/{repo}/pages', context.repo);
+            if (page.data.build_type !== 'workflow') {
+              await github.request('PUT /repos/{owner}/{repo}/pages', {...context.repo, build_type: 'workflow'});
+            }
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Deploy Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
