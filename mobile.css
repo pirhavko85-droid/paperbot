@@ -131,3 +131,5 @@ body{margin:0;min-width:0;background:#111c26;-webkit-text-size-adjust:100%}
 #paperbot-app .pc-event-icon{width:23px;height:23px}
 
 #paperbot-app .pc-stock-detail{gap:2px;margin-top:-3px}#paperbot-app .pc-stock-detail>button:first-child{min-height:22px;padding:0;line-height:20px}#paperbot-app .pc-stock-detail .pc-detail-title{gap:6px;line-height:22px}#paperbot-app .pc-stock-detail .pc-detail-title h2{line-height:22px}#paperbot-app .pc-chart .pc-subtabs button{padding:2px 1px;font-size:10px}
+
+#paperbot-app .pc-chart .pc-axis-date{font-size:9px}#paperbot-app .pc-chart .pc-axis-day{font-size:9px;fill:var(--pc-muted)}

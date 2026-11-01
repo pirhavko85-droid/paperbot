@@ -1,4 +1,4 @@
-# PaperBot v0.8.3.3
+# PaperBot v0.8.3.4
 
 Исследовательская виртуальная торговля: https://pirhavko85-droid.github.io/paperbot/
 
