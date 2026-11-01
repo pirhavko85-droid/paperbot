@@ -8,7 +8,6 @@ on:
 permissions:
   contents: write
   pages: write
-  id-token: write
 concurrency:
   group: paperbot-pages
   cancel-in-progress: false
@@ -16,9 +15,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,23 +33,17 @@ jobs:
             git commit -m 'data: refresh MOEX snapshot [skip ci]'
             git push
           fi
-      - name: Prepare public files
-        run: |
-          mkdir public
-          cp index.html research.html market.html config.js data.js candles.js center.js module-ui.js public/
-          cp -r data public/
-      - name: Use Actions as the Pages source
+      - name: Build GitHub Pages from main
         uses: actions/github-script@v7
         with:
           script: |
-            const page = await github.request('GET /repos/{owner}/{repo}/pages', context.repo);
-            if (page.data.build_type !== 'workflow') {
-              await github.request('PUT /repos/{owner}/{repo}/pages', {...context.repo, build_type: 'workflow'});
+            const expected = require('child_process').execFileSync('git', ['rev-parse', 'HEAD'], {encoding:'utf8'}).trim();
+            await github.request('POST /repos/{owner}/{repo}/pages/builds', context.repo);
+            for (let attempt = 0; attempt < 60; attempt++) {
+              await new Promise(resolve => setTimeout(resolve, 5000));
+              const build = await github.request('GET /repos/{owner}/{repo}/pages/builds/latest', context.repo);
+              core.info('Pages: ' + build.data.status);
+              if (build.data.status === 'built' && build.data.commit === expected) return;
+              if (build.data.status === 'errored') throw new Error(build.data.error?.message || 'Pages build failed');
             }
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-      - name: Deploy Pages
-        id: deploy
-        uses: actions/deploy-pages@v4
+            throw new Error('Pages build timed out');
