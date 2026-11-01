@@ -1,4 +1,10 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+test('universe accepts Russian common/preferred shares and excludes funds, receipts and foreign shares',()=>{
+const {isRussianShare}=require('../config.js');
+assert.equal(isRussianShare({SECID:'SBER',SECTYPE:'1',ISIN:'RU0009029540'}),true);
+assert.equal(isRussianShare({SECID:'SBERP',SECTYPE:'2',ISIN:'RU0009029557'}),true);
+for(const x of [{SECID:'TMOS',SECTYPE:'J',ISIN:'RU000A101X76'},{SECID:'OKEY',SECTYPE:'D',ISIN:'US6708662019'},{SECID:'VEON-RX',SECTYPE:'1',ISIN:'BMG9349W1038'},{SECID:'UNKNOWN',ISIN:'RU0000000000'}])assert.equal(isRussianShare(x),false);
+});
 test('all application scripts parse and modules do not auto-fetch',()=>{
 for(const file of ['index.html','research.html','market.html']){
 const text=fs.readFileSync(file,'utf8');for(const [,source] of text.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(source,{filename:file});
