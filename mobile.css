@@ -1,5 +1,5 @@
 
-#paperbot-app{--pc-bg:light-dark(#f4f6f8,#111c26);--pc-panel:light-dark(#fff,#1a2a36);--pc-ink:light-dark(#1d2f3a,#e7f1f8);--pc-muted:light-dark(#586b77,#a9bbc8);--pc-line:light-dark(#dfe6e9,#2b3e4b);--pc-accent:light-dark(#126c5b,#8cddc5);--pc-soft:light-dark(#e7f1ed,#203e38);padding:6px 0;display:flex;justify-content:center;font:14px/1.4 Inter,system-ui,sans-serif;color:var(--pc-ink)}
+#paperbot-app{--pc-bg:#111c26;--pc-panel:#1a2a36;--pc-ink:#e7f1f8;--pc-muted:#a9bbc8;--pc-line:#2b3e4b;--pc-accent:#8cddc5;--pc-soft:#203e38;padding:6px 0;display:flex;justify-content:center;font:14px/1.4 Inter,system-ui,sans-serif;color:var(--pc-ink)}
 #paperbot-app *{box-sizing:border-box}
 #paperbot-app .pc-app{width:min(100%,390px);background:var(--pc-bg);border:1px solid var(--pc-line);border-radius:23px;padding:8px;display:flex;flex-direction:column;gap:6px;--pc-gap:6px}
 #paperbot-app button{font:inherit;color:inherit;background:transparent;border:0;border-radius:8px;padding:7px 9px;min-height:44px}
@@ -29,7 +29,7 @@
 #paperbot-app .pc-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 2px 0}
 #paperbot-app .pc-heading h2{font-size:16px;font-weight:500;letter-spacing:-.2px}
 #paperbot-app .pc-subtabs{display:flex;border-bottom:1px solid var(--pc-line);gap:3px}
-#paperbot-app .pc-subtabs button{flex:1;padding:8px 3px;font-size:12px;white-space:nowrap;border-radius:7px 7px 0 0}
+#paperbot-app .pc-subtabs button{flex:1;min-height:32px;padding:4px 3px;font-size:12px;white-space:nowrap;border-radius:7px 7px 0 0}
 #paperbot-app .pc-list{background:var(--pc-panel);border:1px solid var(--pc-line);border-radius:12px;overflow:hidden}
 #paperbot-app .pc-stock{display:flex;align-items:center;width:100%;gap:7px;padding:4px 8px;min-height:44px;border-radius:0;border-bottom:1px solid var(--pc-line);text-align:left}
 #paperbot-app .pc-stock:last-child{border-bottom:0}
@@ -39,9 +39,9 @@
 #paperbot-app .pc-price{white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;flex:none}
 #paperbot-app .pc-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 #paperbot-app .pc-panel{padding:10px 12px;background:var(--pc-panel);border:1px solid var(--pc-line);border-radius:12px}
-#paperbot-app .pc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#paperbot-app .pc-metric{display:flex;flex-direction:column;gap:2px}
-#paperbot-app .pc-metric b{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums}
+#paperbot-app .pc-metrics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 12px;padding:7px 9px}
+#paperbot-app .pc-metric{display:flex;flex-direction:row;align-items:baseline;justify-content:space-between;gap:4px;min-width:0}
+#paperbot-app .pc-metric b{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
 #paperbot-app .pc-event{display:flex;gap:9px;align-items:flex-start;padding:10px;border-bottom:1px solid var(--pc-line)}
 #paperbot-app .pc-event:last-child{border:0}
 #paperbot-app .pc-event-icon{width:25px;height:25px;border-radius:8px;background:var(--pc-soft);display:grid;place-items:center;color:var(--pc-accent);flex:none}
@@ -69,11 +69,11 @@
 #paperbot-app summary{min-height:44px;padding:12px 2px}
 #paperbot-app details p{padding:4px 2px 8px}
 @media(max-width:350px){#paperbot-app .pc-app{padding:9px;border-radius:18px}#paperbot-app .pc-value{font-size:21px}#paperbot-app .pc-brand{font-size:17px}#paperbot-app .pc-stock{gap:6px;padding:6px}#paperbot-app .pc-company-name{font-size:12px}#paperbot-app .pc-company-icon{width:26px;height:26px}#paperbot-app .pc-ticker{font-size:11px}#paperbot-app .pc-price{font-size:11px}}
-:root{color-scheme:light dark;background:light-dark(#f4f6f8,#111c26)}
-body{margin:0;min-width:0;background:light-dark(#f4f6f8,#111c26);-webkit-text-size-adjust:100%}
+:root{color-scheme:dark;background:#111c26}
+body{margin:0;min-width:0;background:#111c26;-webkit-text-size-adjust:100%}
 #paperbot-app{padding:0;min-height:100dvh}
 #paperbot-app .pc-app{width:min(100%,760px);border:0;border-radius:0;padding:8px 12px calc(82px + env(safe-area-inset-bottom));align-self:flex-start;min-width:0}
-#paperbot-app .pc-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,760px);padding:6px 8px max(6px,env(safe-area-inset-bottom));margin:0;background:var(--pc-panel);z-index:30;box-shadow:0 -4px 20px light-dark(#152e3910,#00000018)}
+#paperbot-app .pc-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,760px);padding:6px 8px max(6px,env(safe-area-inset-bottom));margin:0;background:var(--pc-panel);z-index:30;box-shadow:0 -4px 20px #00000018}
 #paperbot-app .pc-nav button{min-width:0}
 #paperbot-app .pc-content{min-width:0}
 #paperbot-app .pc-company-badge{position:relative;width:26px;height:26px;flex:none;display:grid;place-items:center;border-radius:8px;background:var(--pc-soft);color:var(--pc-accent);font-size:10px;overflow:hidden}
@@ -88,9 +88,9 @@ body{margin:0;min-width:0;background:light-dark(#f4f6f8,#111c26);-webkit-text-si
 #paperbot-app .pc-link{display:block;min-height:44px;padding:11px 2px;font-size:12px;color:var(--pc-accent);overflow-wrap:anywhere}
 #paperbot-app a{color:var(--pc-accent)}
 #paperbot-app details p{line-height:1.5}
-#paperbot-app .pc-error-list{padding-left:18px;font-size:12px;overflow-wrap:anywhere;color:light-dark(#943428,#ffb6aa)}
-#paperbot-app .pc-alert{padding:9px 12px;border-radius:10px;background:light-dark(#fff0da,#493922);color:light-dark(#714615,#f8dbad);font-size:12px;overflow-wrap:anywhere}
-#paperbot-app .pc-unhealthy{color:light-dark(#943428,#ffb6aa)}
+#paperbot-app .pc-error-list{padding-left:18px;font-size:12px;overflow-wrap:anywhere;color:#ffb6aa}
+#paperbot-app .pc-alert{padding:9px 12px;border-radius:10px;background:#493922;color:#f8dbad;font-size:12px;overflow-wrap:anywhere}
+#paperbot-app .pc-unhealthy{color:#ffb6aa}
 #paperbot-app .pc-unhealthy .pc-dot{background:currentColor}
 #paperbot-app progress{width:100%;height:9px;margin:8px 0;accent-color:var(--pc-accent)}
 #paperbot-app .pc-refresh{background:var(--pc-soft);color:var(--pc-accent);font-size:12px;flex:none}
@@ -101,8 +101,11 @@ body{margin:0;min-width:0;background:light-dark(#f4f6f8,#111c26);-webkit-text-si
 #paperbot-app .pc-heading h2{min-width:0}
 #paperbot-app .pc-rule{align-items:flex-start}
 #paperbot-app .pc-rule>span:last-child{text-align:right}
-@media(min-width:600px){#paperbot-app .pc-app{padding-top:16px}#paperbot-app .pc-value{font-size:24px}#paperbot-app .pc-stock{min-height:46px}#paperbot-app .pc-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:600px){#paperbot-app .pc-app{padding-top:16px}#paperbot-app .pc-value{font-size:24px}#paperbot-app .pc-stock{min-height:46px}#paperbot-app .pc-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:350px){#paperbot-app .pc-app{padding-left:8px;padding-right:8px}#paperbot-app .pc-balance{padding:5px 8px}#paperbot-app .pc-port-tabs button{min-width:39px}#paperbot-app .pc-status{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 #paperbot-app #advanced-module{min-width:0;overflow-anchor:none}
+
+#paperbot-app .pc-metric-label{font-size:11px;color:var(--pc-muted);white-space:nowrap}
+#paperbot-app .pc-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
