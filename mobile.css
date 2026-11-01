@@ -70,7 +70,7 @@
 #paperbot-app details p{padding:4px 2px 8px}
 @media(max-width:350px){#paperbot-app .pc-app{padding:9px;border-radius:18px}#paperbot-app .pc-value{font-size:21px}#paperbot-app .pc-brand{font-size:17px}#paperbot-app .pc-stock{gap:6px;padding:6px}#paperbot-app .pc-company-name{font-size:12px}#paperbot-app .pc-company-icon{width:26px;height:26px}#paperbot-app .pc-ticker{font-size:11px}#paperbot-app .pc-price{font-size:11px}}
 :root{color-scheme:light dark;background:light-dark(#f4f6f8,#111c26)}
-body{margin:0;min-width:320px;background:light-dark(#f4f6f8,#111c26);-webkit-text-size-adjust:100%}
+body{margin:0;min-width:0;background:light-dark(#f4f6f8,#111c26);-webkit-text-size-adjust:100%}
 #paperbot-app{padding:0;min-height:100dvh}
 #paperbot-app .pc-app{width:min(100%,760px);border:0;border-radius:0;padding:8px 12px calc(82px + env(safe-area-inset-bottom));align-self:flex-start;min-width:0}
 #paperbot-app .pc-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,760px);padding:6px 8px max(6px,env(safe-area-inset-bottom));margin:0;background:var(--pc-panel);z-index:30;box-shadow:0 -4px 20px light-dark(#152e3910,#00000018)}
@@ -104,3 +104,5 @@ body{margin:0;min-width:320px;background:light-dark(#f4f6f8,#111c26);-webkit-tex
 @media(min-width:600px){#paperbot-app .pc-app{padding-top:16px}#paperbot-app .pc-value{font-size:24px}#paperbot-app .pc-stock{min-height:46px}#paperbot-app .pc-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:350px){#paperbot-app .pc-app{padding-left:8px;padding-right:8px}#paperbot-app .pc-balance{padding:5px 8px}#paperbot-app .pc-port-tabs button{min-width:39px}#paperbot-app .pc-status{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+#paperbot-app #advanced-module{min-width:0;overflow-anchor:none}
