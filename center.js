@@ -1,7 +1,7 @@
 let refreshBusy=false;
 function moduleFrame(name){
  let frame=document.getElementById('frame-'+name);
- if(!frame){frame=document.createElement('iframe');frame.id='frame-'+name;frame.title=name==='research'?'Исследование':'Все акции и кризисы';frame.style.cssText='width:100%;height:78vh;border:1px solid #3c527a;border-radius:12px;display:none';frame.ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Модуль не загрузился')),20000);frame.onload=()=>{clearTimeout(timer);resolve(frame.contentWindow)}});frame.src=name+'.html?embedded=1&v=0834';document.getElementById('unified-view').append(frame)}
+ if(!frame){frame=document.createElement('iframe');frame.id='frame-'+name;frame.title=name==='research'?'Исследование':'Все акции и кризисы';frame.style.cssText='width:100%;height:78vh;border:1px solid #3c527a;border-radius:12px;display:none';frame.ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Модуль не загрузился')),20000);frame.onload=()=>{clearTimeout(timer);resolve(frame.contentWindow)}});frame.src=name+'.html?embedded=1&v=0835';document.getElementById('unified-view').append(frame)}
  return frame;
 }
 function switchTab(tab){
