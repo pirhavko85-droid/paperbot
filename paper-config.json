@@ -3,7 +3,7 @@
   "enabled": true,
   "mode": "paper-only",
   "futureBroker": "БКС",
-  "tickers": ["SBER", "LKOH", "TATN", "ROSN", "GAZP", "NVTK", "MOEX", "MTSS"],
+  "tickers": ["SBERP", "LKOH", "TATN", "ROSN", "GAZP", "NVTK", "MOEX", "MTSS"],
   "starts": [50000, 100000, 500000],
   "strategy": "SMA20/60, сигнал на завершённой сессии, исполнение на закрытии следующей наблюдаемой сессии",
   "positionWeight": 0.15,

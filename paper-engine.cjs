@@ -10,6 +10,12 @@ function advance(previous,snapshot,dividends,config,now=new Date(),command='run'
  const blocked=reason=>{state.health={status:'blocked',reason};return state};
  if(state.schema!==1||!Array.isArray(state.portfolios)||state.portfolios.length!==config.starts.length)return blocked('Неизвестная схема состояния портфелей');
  for(const p of state.portfolios){if(!Number.isFinite(p.cash)||p.cash<0||!p.positions||Object.entries(p.positions).some(([t,q])=>!config.tickers.includes(t)||!Number.isSafeInteger(q)||q<0))return blocked('Некорректный денежный остаток или позиция; требуется проверка состояния')}
+ // A changed universe cancels obsolete orders; it never renames shares or rewrites trades.
+ for(const p of state.portfolios){
+  const removed=p.pending.filter(order=>!config.tickers.includes(order.ticker));
+  p.pending=p.pending.filter(order=>config.tickers.includes(order.ticker));
+  for(const order of removed)p.ledger.push({id:p.ledger.length+1,type:'ORDER_CANCELLED',ticker:order.ticker,side:order.side,signalDate:order.signalDate,date:new Date(+now+3*3600000).toISOString().slice(0,10),recordedAt:now.toISOString(),reason:'Бумага исключена из торгового списка; старая заявка отменена'});
+ }
  if(command==='pause'||!config.enabled){state.status='paused';state.health={status:'paused',reason:'Виртуальная торговля приостановлена оператором'};return state}
  if(command==='resume'){state.status='active';state.portfolios.forEach(p=>{p.paused=false;p.pending=[];p.peak=p.equity.at(-1)?.value||p.start});state.lastSession=null;state.resumedAt=now.toISOString()}
  if(state.status==='paused')return blocked('Операторская пауза. Для продолжения нужна команда resume в GitHub Actions.');
@@ -35,9 +41,11 @@ function advance(previous,snapshot,dividends,config,now=new Date(),command='run'
  if(state.lastSession&&!p.paused){
  const orders=[...p.pending].sort((a,b)=>(a.side==='sell'?0:1)-(b.side==='sell'?0:1)||a.ticker.localeCompare(b.ticker));
  for(const order of orders){const t=order.ticker,lot=specs[t].LOTSIZE;let qty=0;const price=money(prices[t]*(order.side==='buy'?1+config.slippage:1-config.slippage));
+ if(order.side==='buy'&&(p.positions[t]||0)>0){log({type:'SKIP',ticker:t,code:'ALREADY_HELD',reason:'Позиция уже открыта; докупка не предусмотрена',signalDate:order.signalDate});continue}
+ if(order.side==='buy'&&Object.values(p.positions).filter(q=>q>0).length>=config.maxPositions){log({type:'SKIP',ticker:t,code:'POSITION_LIMIT',reason:'Заняты все '+config.maxPositions+' мест; новая покупка возможна после продажи позиции',signalDate:order.signalDate});continue}
  if(order.side==='sell')qty=p.positions[t]||0;
  else if(!(p.positions[t]>0)&&Object.values(p.positions).filter(q=>q>0).length<config.maxPositions){const budget=Math.min(equity()*config.positionWeight,p.cash);qty=Math.floor(budget/(price*(1+config.commission)*lot))*lot}
- if(qty<=0){log({type:'SKIP',ticker:t,reason:'Недостаточно средств на лот или достигнут лимит позиций',signalDate:order.signalDate});continue}
+ if(qty<=0){log({type:'SKIP',ticker:t,code:order.side==='buy'?'LOT_BUDGET':'NO_POSITION',reason:order.side==='buy'?'Бюджета покупки с учётом комиссии недостаточно на один биржевой лот':'Нет открытой позиции для продажи',signalDate:order.signalDate});continue}
  const notional=money(qty*price),fee=money(notional*config.commission);
  if(order.side==='buy'&&notional+fee>p.cash){log({type:'SKIP',ticker:t,reason:'Недостаточно средств с учётом комиссии'});continue}
  p.cash=money(p.cash+(order.side==='buy'?-notional-fee:notional-fee));p.positions[t]=(p.positions[t]||0)+(order.side==='buy'?qty:-qty);
