@@ -1,0 +1,889 @@
+{
+  "generatedAt": "2026-11-06T22:01:02.565Z",
+  "sources": {
+    "snapshotAt": "2026-11-06T01:43:12.656Z",
+    "dividendsAt": "2026-11-06T01:43:54.703Z"
+  },
+  "hashes": {
+    "data/latest.json": "21a7f51f73854c1f2826e5a24c99de5a36efac2bfed746766f9048bd8c066829",
+    "data/dividends.json": "9e559deec05ac77a2d0109f3819f8b50e63d8157b4f5b44f1c029062d525f720",
+    "paper-engine.cjs": "ce5ddfb0df7911c3f1bc237a9272b027873a19476e21a24de4d3a4bb096fcef1",
+    "strategy-v2.cjs": "e07288c78b3e0cd30489deb92fc5818f753781cab7760c98faf68cf76b59d976"
+  },
+  "config": {
+    "schema": 1,
+    "enabled": true,
+    "mode": "paper-only",
+    "futureBroker": "БКС",
+    "experimentId": "experiment-2-20261107",
+    "model": "balanced",
+    "tickers": [
+      "SBERP",
+      "MOEX",
+      "T",
+      "DOMRF",
+      "LKOH",
+      "TATN",
+      "ROSN",
+      "GAZP",
+      "NVTK",
+      "BANEP",
+      "TRNFP",
+      "MTSS",
+      "MDMG",
+      "X5",
+      "YDEX",
+      "AFLT",
+      "IRAO",
+      "CHMF"
+    ],
+    "starts": [
+      50000,
+      100000,
+      500000
+    ],
+    "strategy": "V2: сбалансированная корзина, равный бюджет 9 отраслей, резерв 30%; параллельная проверка тренда и откатов",
+    "positionWeight": 0.08,
+    "maxPositions": 8,
+    "cashReserve": 0.3,
+    "sectorLimit": 0.2,
+    "riskPerTrade": 0.005,
+    "commission": 0.0005,
+    "slippage": 0.001,
+    "maxDrawdown": 0.1,
+    "maxDailyPriceJump": 0.35,
+    "dividendPaymentLagDays": 30,
+    "taxRate": 0,
+    "taxNote": "Исследовательская модель до налогов. Это не расчёт НДФЛ и не тариф БКС."
+  },
+  "results": [
+    {
+      "phase": "development",
+      "model": "sma",
+      "cost": 1,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -2.767759999999997,
+          "maxDrawdownPct": -3.3279252961652572,
+          "trades": 100,
+          "fees": 159.24000000000007,
+          "averageCashPct": 78.64179201733131,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -3.013559999999993,
+          "maxDrawdownPct": -3.661645531496649,
+          "trades": 100,
+          "fees": 359.12000000000006,
+          "averageCashPct": 75.78749820166138,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -3.155861999999998,
+          "maxDrawdownPct": -3.8624107734894886,
+          "trades": 100,
+          "fees": 1905.2099999999998,
+          "averageCashPct": 73.94526206224491,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "sma",
+      "cost": 2,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -3.7279799999999974,
+          "maxDrawdownPct": -3.947857736202931,
+          "trades": 100,
+          "fees": 316.42000000000013,
+          "averageCashPct": 78.58777957132463,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -4.06361999999999,
+          "maxDrawdownPct": -4.366089906831105,
+          "trades": 100,
+          "fees": 713.88,
+          "averageCashPct": 75.72913554691519,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -4.2687060000000105,
+          "maxDrawdownPct": -4.599818434004277,
+          "trades": 100,
+          "fees": 3778.0300000000016,
+          "averageCashPct": 74.1437051569919,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "trend",
+      "cost": 1,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -0.9781199999999934,
+          "maxDrawdownPct": -1.3576291070445223,
+          "trades": 48,
+          "fees": 79.49,
+          "averageCashPct": 82.29893981653355,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -1.1533299999999969,
+          "maxDrawdownPct": -1.5847736095428222,
+          "trades": 48,
+          "fees": 175.99000000000004,
+          "averageCashPct": 79.67389397138973,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -1.2483259999999996,
+          "maxDrawdownPct": -1.7336990860000845,
+          "trades": 48,
+          "fees": 943.9400000000002,
+          "averageCashPct": 77.84121326769801,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "trend",
+      "cost": 2,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -1.4600399999999958,
+          "maxDrawdownPct": -1.7084279729835172,
+          "trades": 48,
+          "fees": 156.97000000000003,
+          "averageCashPct": 82.28910902889795,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -1.6826600000000025,
+          "maxDrawdownPct": -1.9965731593716507,
+          "trades": 48,
+          "fees": 349.35,
+          "averageCashPct": 79.64004966073182,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -1.8022900000000064,
+          "maxDrawdownPct": -2.157094984343233,
+          "trades": 48,
+          "fees": 1872.7199999999998,
+          "averageCashPct": 78.03651135105899,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "dip",
+      "cost": 1,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -1.0620399999999974,
+          "maxDrawdownPct": -1.0806961807003135,
+          "trades": 36,
+          "fees": 60.07999999999999,
+          "averageCashPct": 90.31657784636828,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -1.2265300000000035,
+          "maxDrawdownPct": -1.2283473984078697,
+          "trades": 36,
+          "fees": 131.51,
+          "averageCashPct": 89.55143626693497,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -1.346356000000004,
+          "maxDrawdownPct": -1.346356000000004,
+          "trades": 36,
+          "fees": 704.5799999999999,
+          "averageCashPct": 88.89006825792262,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "dip",
+      "cost": 2,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -1.4225000000000043,
+          "maxDrawdownPct": -1.4225000000000043,
+          "trades": 36,
+          "fees": 120.14999999999998,
+          "averageCashPct": 90.29860745521292,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -1.6210399999999958,
+          "maxDrawdownPct": -1.6210399999999958,
+          "trades": 36,
+          "fees": 263.03,
+          "averageCashPct": 89.5295473089243,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -1.7628660000000074,
+          "maxDrawdownPct": -1.7628660000000074,
+          "trades": 36,
+          "fees": 1403.31,
+          "averageCashPct": 88.91889847643765,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "hold",
+      "cost": 1,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -3.9423200000000103,
+          "maxDrawdownPct": -6.558518733097751,
+          "trades": 11,
+          "fees": 12.48,
+          "averageCashPct": 58.4741204988858,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -5.075039999999998,
+          "maxDrawdownPct": -8.100938102080747,
+          "trades": 15,
+          "fees": 28.590000000000003,
+          "averageCashPct": 45.582306802080424,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -5.946901999999998,
+          "maxDrawdownPct": -9.537380351813319,
+          "trades": 17,
+          "fees": 164.82999999999998,
+          "averageCashPct": 35.75637174054583,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "hold",
+      "cost": 2,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -4.01726,
+          "maxDrawdownPct": -6.574732661567473,
+          "trades": 11,
+          "fees": 24.980000000000008,
+          "averageCashPct": 58.44690155058624,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -5.160770000000003,
+          "maxDrawdownPct": -8.110780591703225,
+          "trades": 15,
+          "fees": 57.23,
+          "averageCashPct": 45.53597179339252,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -6.005695999999993,
+          "maxDrawdownPct": -9.47639139335761,
+          "trades": 17,
+          "fees": 327.89,
+          "averageCashPct": 36.103883905032376,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "balanced",
+      "cost": 1,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -3.9423200000000103,
+          "maxDrawdownPct": -6.558518733097751,
+          "trades": 11,
+          "fees": 12.48,
+          "averageCashPct": 58.4741204988858,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -5.075039999999998,
+          "maxDrawdownPct": -8.100938102080747,
+          "trades": 15,
+          "fees": 28.590000000000003,
+          "averageCashPct": 45.582306802080424,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -5.946901999999998,
+          "maxDrawdownPct": -9.537380351813319,
+          "trades": 17,
+          "fees": 164.82999999999998,
+          "averageCashPct": 35.75637174054583,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "development",
+      "model": "balanced",
+      "cost": 2,
+      "from": "2026-05-01",
+      "to": "2026-06-30",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 57,
+          "returnPct": -4.01726,
+          "maxDrawdownPct": -6.574732661567473,
+          "trades": 11,
+          "fees": 24.980000000000008,
+          "averageCashPct": 58.44690155058624,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 57,
+          "returnPct": -5.160770000000003,
+          "maxDrawdownPct": -8.110780591703225,
+          "trades": 15,
+          "fees": 57.23,
+          "averageCashPct": 45.53597179339252,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 57,
+          "returnPct": -6.005695999999993,
+          "maxDrawdownPct": -9.47639139335761,
+          "trades": 17,
+          "fees": 327.89,
+          "averageCashPct": 36.103883905032376,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "sma",
+      "cost": 1,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -1.0346399999999978,
+          "maxDrawdownPct": -4.809383650198962,
+          "trades": 158,
+          "fees": 241.1000000000001,
+          "averageCashPct": 65.79109470736047,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": 0.18158999999999814,
+          "maxDrawdownPct": -5.050193100884204,
+          "trades": 148,
+          "fees": 479.1700000000002,
+          "averageCashPct": 64.07840232300806,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -0.11045400000000427,
+          "maxDrawdownPct": -5.7836724359564435,
+          "trades": 148,
+          "fees": 2473.3,
+          "averageCashPct": 62.15136013044428,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "sma",
+      "cost": 2,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -2.3822599999999916,
+          "maxDrawdownPct": -5.253582350358277,
+          "trades": 158,
+          "fees": 470.58999999999986,
+          "averageCashPct": 65.91029250664359,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": -1.2696799999999953,
+          "maxDrawdownPct": -5.528851393469569,
+          "trades": 148,
+          "fees": 938.5300000000001,
+          "averageCashPct": 63.91447050110448,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -1.610390000000006,
+          "maxDrawdownPct": -6.236881216821899,
+          "trades": 148,
+          "fees": 4905.390000000001,
+          "averageCashPct": 62.12264971679608,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "trend",
+      "cost": 1,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -1.3090000000000046,
+          "maxDrawdownPct": -2.6401492780695257,
+          "trades": 40,
+          "fees": 61.26,
+          "averageCashPct": 78.55208633046931,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": -0.21403999999999312,
+          "maxDrawdownPct": -2.861725364926082,
+          "trades": 40,
+          "fees": 128.87999999999997,
+          "averageCashPct": 76.87779788351114,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -0.41084599999999805,
+          "maxDrawdownPct": -3.181073475459173,
+          "trades": 40,
+          "fees": 653.8299999999999,
+          "averageCashPct": 76.45573806117258,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "trend",
+      "cost": 2,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -1.6654999999999975,
+          "maxDrawdownPct": -2.922559180740103,
+          "trades": 40,
+          "fees": 122.03999999999999,
+          "averageCashPct": 78.50931813239521,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": -0.5824900000000022,
+          "maxDrawdownPct": -2.8761091985258225,
+          "trades": 40,
+          "fees": 257.38999999999993,
+          "averageCashPct": 76.9031900161562,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -0.8159660000000013,
+          "maxDrawdownPct": -3.1950580190238886,
+          "trades": 40,
+          "fees": 1304.83,
+          "averageCashPct": 76.49928957763221,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "dip",
+      "cost": 1,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -0.8219399999999988,
+          "maxDrawdownPct": -1.2928968594101198,
+          "trades": 23,
+          "fees": 38.17000000000001,
+          "averageCashPct": 93.40736610799455,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": -0.9072400000000092,
+          "maxDrawdownPct": -1.4657179518760888,
+          "trades": 23,
+          "fees": 84.55000000000001,
+          "averageCashPct": 92.531822238219,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -0.9735139999999975,
+          "maxDrawdownPct": -1.5591353000470543,
+          "trades": 23,
+          "fees": 448.49000000000007,
+          "averageCashPct": 92.09206403593541,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "dip",
+      "cost": 2,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": -1.0509800000000014,
+          "maxDrawdownPct": -1.4944030899520344,
+          "trades": 23,
+          "fees": 76.36999999999999,
+          "averageCashPct": 93.4017498176241,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": -1.1608699999999916,
+          "maxDrawdownPct": -1.6862466485078387,
+          "trades": 23,
+          "fees": 169.11999999999998,
+          "averageCashPct": 92.5249825146307,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": -1.2397699999999956,
+          "maxDrawdownPct": -1.786932188043322,
+          "trades": 23,
+          "fees": 894.18,
+          "averageCashPct": 92.09611445650734,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "hold",
+      "cost": 1,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": 5.072900000000002,
+          "maxDrawdownPct": -6.171065118995478,
+          "trades": 11,
+          "fees": 12.450000000000001,
+          "averageCashPct": 51.68839452637572,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": 6.250320000000009,
+          "maxDrawdownPct": -7.426875488301754,
+          "trades": 16,
+          "fees": 30.57,
+          "averageCashPct": 41.25447391910679,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": 6.946686000000013,
+          "maxDrawdownPct": -8.080084267315735,
+          "trades": 18,
+          "fees": 170.50999999999996,
+          "averageCashPct": 34.645398041455884,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "hold",
+      "cost": 2,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": 4.998279999999999,
+          "maxDrawdownPct": -6.175445432063342,
+          "trades": 11,
+          "fees": 24.9,
+          "averageCashPct": 51.65286006328096,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": 6.158630000000009,
+          "maxDrawdownPct": -7.43329257691302,
+          "trades": 16,
+          "fees": 61.18000000000001,
+          "averageCashPct": 41.201617552902036,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": 6.841965999999999,
+          "maxDrawdownPct": -7.951165710874042,
+          "trades": 18,
+          "fees": 335.15000000000003,
+          "averageCashPct": 35.747435788161084,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "balanced",
+      "cost": 1,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": 5.072900000000002,
+          "maxDrawdownPct": -6.171065118995478,
+          "trades": 11,
+          "fees": 12.450000000000001,
+          "averageCashPct": 51.68839452637572,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": 6.250320000000009,
+          "maxDrawdownPct": -7.426875488301754,
+          "trades": 16,
+          "fees": 30.57,
+          "averageCashPct": 41.25447391910679,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": 6.946686000000013,
+          "maxDrawdownPct": -8.080084267315735,
+          "trades": 18,
+          "fees": 170.50999999999996,
+          "averageCashPct": 34.645398041455884,
+          "riskOff": false
+        }
+      ]
+    },
+    {
+      "phase": "retrospective-validation",
+      "model": "balanced",
+      "cost": 2,
+      "from": "2026-07-01",
+      "to": "2026-11-05",
+      "complete": true,
+      "failures": [],
+      "portfolios": [
+        {
+          "start": 50000,
+          "sessions": 120,
+          "returnPct": 4.998279999999999,
+          "maxDrawdownPct": -6.175445432063342,
+          "trades": 11,
+          "fees": 24.9,
+          "averageCashPct": 51.65286006328096,
+          "riskOff": false
+        },
+        {
+          "start": 100000,
+          "sessions": 120,
+          "returnPct": 6.158630000000009,
+          "maxDrawdownPct": -7.43329257691302,
+          "trades": 16,
+          "fees": 61.18000000000001,
+          "averageCashPct": 41.201617552902036,
+          "riskOff": false
+        },
+        {
+          "start": 500000,
+          "sessions": 120,
+          "returnPct": 6.841965999999999,
+          "maxDrawdownPct": -7.951165710874042,
+          "trades": 18,
+          "fees": 335.15000000000003,
+          "averageCashPct": 35.747435788161084,
+          "riskOff": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Current universe and lot sizes; survivorship bias.",
+    "Historical dividend knowledge; source completeness not independently audited.",
+    "No complete 2008/2022 crisis certification.",
+    "Validation dates have already been inspected; this is not unseen out-of-sample evidence.",
+    "Incomplete runs must not be ranked as full-period returns.",
+    "No claim that the most profitable backtest is the best future strategy."
+  ]
+}

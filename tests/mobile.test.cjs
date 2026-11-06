@@ -18,6 +18,8 @@ test('mobile shell uses real source data, isolates books and never advances trad
  click({action:'view',view:'payments'});assert.match(root.innerHTML,/10 ₽/);
  click({action:'view',view:'more'});assert.match(root.innerHTML,/15:11 МСК/);assert.match(root.innerHTML,/15:12 МСК/);
  click({action:'refresh'});await new Promise(setImmediate);assert.match(root.innerHTML,/4 \/ 4/);assert.ok(fetches>=3);assert.equal(JSON.stringify(paper),before);
+ paper.experimentId='test-v2';paper.startedAt='2026-11-07T10:00:00Z';paper.comparison=[{model:'trend',status:'ok',lastSession:'2001-01-02',portfolios:[{start:100000,value:101000,drawdown:-.02}]}];
+ click({action:'view',view:'more'});assert.match(root.innerHTML,/Эксперимент №2/);assert.match(root.innerHTML,/\+1,00%/);assert.match(root.innerHTML,/data\/archive\/experiment-1.json/);
 });
 test('all shipped HTML script and stylesheet references exist and browser scripts parse',()=>{for(const file of ['index.html','manual.html','research.html','market.html']){const html=fs.readFileSync(file,'utf8');for(const [,src] of html.matchAll(/<script src="([^"]+)"/g)){const path=src.split('?')[0];assert.ok(fs.existsSync(path),file+': '+path);new vm.Script(fs.readFileSync(path,'utf8'),{filename:path})}for(const [,href] of html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g))assert.ok(fs.existsSync(href.split('?')[0]))}});
 
