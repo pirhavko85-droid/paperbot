@@ -50,7 +50,7 @@
 #paperbot-app .pc-event-time{font-size:11px;color:var(--pc-muted);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
 #paperbot-app .pc-empty{padding:17px 12px;color:var(--pc-muted);font-size:12px;text-align:center}
 #paperbot-app .pc-action-row{font-size:12px;color:var(--pc-accent);text-align:left;padding:6px 2px;min-height:44px}
-#paperbot-app .pc-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding-top:7px;border-top:1px solid var(--pc-line);margin-top:4px}
+#paperbot-app .pc-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding-top:7px;border-top:1px solid var(--pc-line);margin-top:4px}
 #paperbot-app .pc-nav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;padding:6px 2px;min-height:51px;color:var(--pc-muted)}
 #paperbot-app .pc-nav button[aria-pressed="true"]{color:var(--pc-accent)}
 #paperbot-app .pc-pill{padding:2px 6px;font-size:11px;border-radius:5px;background:var(--pc-soft);color:var(--pc-accent)}
