@@ -1,0 +1,89 @@
+[
+  {
+    "from": "2026-05-01",
+    "start": 50000,
+    "controlRub": 44863.13,
+    "reentryRub": 46579.51,
+    "controlDD": -10.98602978962343,
+    "reentryDD": -12.594756756435,
+    "episodes": [
+      {
+        "exit": "2026-07-16",
+        "firstSale": "2026-07-17",
+        "signal": "2026-09-09",
+        "buy": "2026-09-10",
+        "until": "2026-11-06",
+        "flatSessions": 51,
+        "worstRelativeRub": -810.8,
+        "incrementRub": 1716.38
+      }
+    ]
+  },
+  {
+    "from": "2026-05-01",
+    "start": 100000,
+    "controlRub": 88422.56,
+    "reentryRub": 92423.29,
+    "controlDD": -12.52371471605903,
+    "reentryDD": -14.55067804029907,
+    "episodes": [
+      {
+        "exit": "2026-07-15",
+        "firstSale": "2026-07-16",
+        "signal": "2026-09-09",
+        "buy": "2026-09-10",
+        "until": "2026-11-06",
+        "flatSessions": 52,
+        "worstRelativeRub": -2048.89,
+        "incrementRub": 4000.73
+      }
+    ]
+  },
+  {
+    "from": "2026-05-01",
+    "start": 500000,
+    "controlRub": 452292.02,
+    "reentryRub": 474020.33,
+    "controlDD": -11.082276443156491,
+    "reentryDD": -13.164982747505638,
+    "episodes": [
+      {
+        "exit": "2026-07-06",
+        "firstSale": "2026-07-07",
+        "signal": "2026-09-09",
+        "buy": "2026-09-10",
+        "until": "2026-11-06",
+        "flatSessions": 61,
+        "worstRelativeRub": -12482.14,
+        "incrementRub": 21728.31
+      }
+    ]
+  },
+  {
+    "from": "2026-09-01",
+    "start": 50000,
+    "controlRub": 53164.42,
+    "reentryRub": 53164.42,
+    "controlDD": -2.8595275452937385,
+    "reentryDD": -2.8595275452937385,
+    "episodes": []
+  },
+  {
+    "from": "2026-09-01",
+    "start": 100000,
+    "controlRub": 107203.72,
+    "reentryRub": 107203.72,
+    "controlDD": -3.019435953574501,
+    "reentryDD": -3.019435953574501,
+    "episodes": []
+  },
+  {
+    "from": "2026-09-01",
+    "start": 500000,
+    "controlRub": 539253.22,
+    "reentryRub": 539253.22,
+    "controlDD": -3.198262812055641,
+    "reentryDD": -3.198262812055641,
+    "episodes": []
+  }
+]

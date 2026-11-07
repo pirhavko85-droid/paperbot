@@ -37,8 +37,17 @@ test('one-time migration archives exact old book and cannot reset on retry',()=>
   for(const [f,data] of Object.entries({'paper-state.json':old,'latest.json':snapshot,'dividends.json':dividends}))fs.writeFileSync(path.join(dir,'data',f),JSON.stringify(data));
   const script=path.resolve('scripts/paper.cjs');cp.execFileSync(process.execPath,[script],{cwd:dir,env:{...process.env,PAPER_COMMAND:'run'}});
   const result=JSON.parse(fs.readFileSync(path.join(dir,'data/paper-state.json'))),archive=JSON.parse(fs.readFileSync(path.join(dir,'data/archive/experiment-1.json')));
-  assert.deepEqual(archive.state,old);assert.equal(result.experimentId,base.experimentId);assert.ok(result.portfolios.every(p=>p.cash===p.start&&!p.ledger.some(e=>e.type==='BUY')));assert.equal(result.comparison.length,4);
+  assert.deepEqual(archive.state,old);assert.equal(result.experimentId,base.experimentId);assert.ok(result.portfolios.every(p=>p.cash===p.start&&!p.ledger.some(e=>e.type==='BUY')));assert.equal(result.comparison.length,5);
   cp.execFileSync(process.execPath,[script],{cwd:dir,env:{...process.env,PAPER_COMMAND:'run'}});
   const repeat=JSON.parse(fs.readFileSync(path.join(dir,'data/paper-state.json')));assert.deepEqual(repeat.portfolios,result.portfolios);assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dir,'data/archive/experiment-1.json'))),archive);
  }finally{assert.equal(path.dirname(path.resolve(dir)),testRoot);fs.rmSync(dir,{recursive:true,force:true})}
+});
+
+test('recovery requires five confirmed index closes after exit and ignores future data',()=>{
+ const {recoverySignal}=require('../strategy-v2.cjs');
+ const closes=Object.fromEntries(Array.from({length:70},(_,i)=>[day(i),100+i]));
+ assert.equal(recoverySignal(closes,day(65),day(61)),false);
+ assert.equal(recoverySignal(closes,day(66),day(61)),true);
+ closes[day(66)]=1;assert.equal(recoverySignal(closes,day(66),day(61)),false);
+ delete closes[day(66)];assert.equal(recoverySignal(closes,day(66),day(61)),false);
 });

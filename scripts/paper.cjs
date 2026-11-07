@@ -14,9 +14,11 @@ function main(){
  state.archive='data/archive/experiment-1.json';
  const shadowFile='data/shadow-state.json',stored=read(shadowFile,true),shadows=migrate?{}:(stored?.experiments||{});
  const results={};
- for(const model of ['sma','trend','dip','hold']){
-  const settings={...config,model,maxPositions:model==='hold'?18:8,maxDrawdown:model==='hold'?1:config.maxDrawdown};
-  results[model]=advance(shadows[model]||null,snapshot,dividends,settings,now,command,createStrategy(snapshot,dividends,settings,now));
+ for(const model of ['sma','trend','dip','hold','reentry']){
+  const settings={...config,model,maxPositions:['reentry','hold'].includes(model)?config.maxPositions:8,maxDrawdown:model==='hold'?1:config.maxDrawdown};
+  if(model==='reentry')snapshot.indexCloses=read('data/mcftr.json',true)?.closes;
+  const seed=model==='reentry'&&!migrate?old:null;
+  results[model]=advance(shadows[model]||seed,snapshot,dividends,settings,now,command,createStrategy(snapshot,dividends,settings,now));
  }
  state.comparison=Object.entries(results).map(([model,s])=>({model,status:s.health.status,reason:s.health.reason,lastSession:s.lastSession,portfolios:s.portfolios.map(p=>({start:p.start,value:p.equity.at(-1)?.value??p.start,cash:p.cash,drawdown:p.equity.at(-1)?.drawdown??0,trades:p.ledger.filter(e=>['BUY','SELL'].includes(e.type)).length}))}));
  if(migrate&&old){

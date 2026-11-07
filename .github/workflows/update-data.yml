@@ -32,6 +32,9 @@ jobs:
         run: node scripts/collect.cjs
       - name: Collect dividend history
         run: node scripts/dividends.cjs
+      - name: Collect MCFTR for recovery signals
+        continue-on-error: true
+        run: node scripts/index-recovery.cjs
       - name: Advance virtual portfolios
         id: paper
         continue-on-error: true

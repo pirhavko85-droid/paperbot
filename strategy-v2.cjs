@@ -11,12 +11,19 @@ function features(c,events=[]){
  const vol=Math.sqrt(mean(returns.map(x=>(x-m)**2)));
  return {last,previous:values.at(-2),sma20:mean(values.slice(-20)),sma60:mean(values.slice(-60)),sma200:mean(values.slice(-200)),momentum:last/values.at(-61)-1,vol,score:(last/values.at(-61)-1)/Math.max(vol,.005),stop:Math.min(.12,Math.max(.04,3*vol))};
 }
+function recoverySignal(closes,date,exit){
+ const rows=Object.entries(closes||{}).filter(([d])=>d<=date).sort(([a],[b])=>a.localeCompare(b)).slice(-64);
+ if(rows.length!==64||rows.at(-1)[0]!==date||rows[59][0]<=exit)return false;
+ if(rows.some(([,v])=>!Number.isFinite(v)||v<=0))return false;
+ return rows.slice(59).every(([,v],i)=>v>mean(rows.slice(i,i+60).map(([,x])=>x)));
+}
 function createStrategy(snapshot,dividends,config,now=new Date()){
  const cutoff=new Date(+now+3*3600000).toISOString().slice(0,10);
  const stats=Object.fromEntries(config.tickers.map(t=>[t,features((snapshot.series[t]||[]).filter(c=>c.date<cutoff),dividends.events.filter(e=>e.ticker===t))]));
- const mode=config.model||'trend';
+ const mode=config.model==='reentry'?'balanced':config.model||'trend';
  return {
   managedRisk:true,
+  canReenter:config.model==='reentry'?(date,exit)=>recoverySignal(snapshot.indexCloses,date,exit):null,
   signal({ticker,held,p}){
    if(p.riskOff)return false;
    const f=stats[ticker];if(!f)return held;
@@ -47,4 +54,4 @@ function createStrategy(snapshot,dividends,config,now=new Date()){
   stats
  };
 }
-module.exports={createStrategy,features,sectors};
+module.exports={createStrategy,features,sectors,recoverySignal};

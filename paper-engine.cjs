@@ -45,7 +45,7 @@ function advance(previous,snapshot,dividends,config,now=new Date(),command='run'
  p.entitlements[e.id]={eventId:e.id,ticker:e.ticker,qty:eligible,amount:e.amount,gross,recordDate:e.recordDate,estimatedPaymentDate,paid:false,source:e.source};
  log({type:'DIVIDEND_ENTITLEMENT',ticker:e.ticker,qty:eligible,gross,recordDate:e.recordDate,estimatedPaymentDate,reason:'Модель права по позиции на закрытии последнего дня покупки'});
  }
- if(researchPolicy?.managedRisk&&equity()/(p.riskAnchor||p.peak)-1<=-config.maxDrawdown&&!p.riskOff){p.riskOff=true;p.pending=p.pending.filter(o=>o.side==='sell');log({type:'RISK_EXIT',reason:'Риск-лимит: покупки запрещены; выходы исполняются на следующей сессии'})}
+ if(researchPolicy?.managedRisk&&equity()/(p.riskAnchor||p.peak)-1<=-config.maxDrawdown&&!p.riskOff){p.riskOff=true;if(researchPolicy.canReenter)p.exitSignalDate=date;p.pending=p.pending.filter(o=>o.side==='sell');log({type:'RISK_EXIT',reason:'Риск-лимит: покупки запрещены; выходы исполняются на следующей сессии'})}
  if(!researchPolicy?.managedRisk&&!p.paused&&equity()/p.peak-1<=-config.maxDrawdown){p.paused=true;p.pending=[];log({type:'RISK_PAUSE',reason:'Просадка достигла лимита до исполнения заявок; заявки отменены'})}
  // Execute only previously recorded signals, with no backfill and no price from the signal session.
  if(state.lastSession&&!p.paused){
@@ -68,6 +68,10 @@ function advance(previous,snapshot,dividends,config,now=new Date(),command='run'
  for(const e of Object.values(p.entitlements)){if(!e.paid&&e.estimatedPaymentDate<=date){const tax=money(e.gross*config.taxRate);p.cash=money(p.cash+e.gross-tax);e.paid=true;log({type:'DIVIDEND_MODEL_CREDIT',ticker:e.ticker,gross:e.gross,tax,net:money(e.gross-tax),reason:'Расчётное зачисление; фактическая дата выплаты неизвестна'})}}
  const value=equity();p.peak=Math.max(p.peak,value);if(p.riskAnchor)p.riskAnchor=Math.max(p.riskAnchor,value);const dd=value/p.peak-1;
  if(dd<=-config.maxDrawdown&&!p.paused&&!researchPolicy?.managedRisk){p.paused=true;log({type:'RISK_PAUSE',reason:'Достигнут предел просадки; новые заявки остановлены, позиции сохранены',drawdown:dd})}
+ if(p.riskOff&&p.exitSignalDate&&!p.paused&&!Object.values(p.positions).some(q=>q>0)&&researchPolicy?.canReenter?.(date,p.exitSignalDate)){
+  p.riskOff=false;p.riskAnchor=value;
+  log({type:'REENTRY_SIGNAL',reason:'Пять закрытий MCFTR выше SMA60 после защитного выхода'});
+ }
  if(!p.paused){for(const t of config.tickers){const held=(p.positions[t]||0)>0,bullish=researchPolicy?.signal?researchPolicy.signal({ticker:t,held,p,series,date}):signal(series[t]);if(bullish===held)continue;const side=bullish?'buy':'sell';const order={ticker:t,side,signalDate:date,reason:researchPolicy?.reason?researchPolicy.reason(side):bullish?'SMA20 выше SMA60':'SMA20 не выше SMA60',...(researchPolicy?.score?{score:researchPolicy.score(t)}:{}),...(researchPolicy?.metadata?researchPolicy.metadata(t):{})};p.pending.push(order);log({type:'SIGNAL',...order})}}
  if(researchPolicy&&!p.paused){for(const order of researchPolicy.orders({p,prices,series,date,config,equity:value})){p.pending.push(order);log({type:'SIGNAL',...order})}}
  p.equity.push({date,value,cash:p.cash,receivable:money(receivable()),drawdown:dd});

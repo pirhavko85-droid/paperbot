@@ -13,7 +13,7 @@ function metrics(p){
  const n=Math.max(1,Math.ceil(daily.length*.05));
  return {start:p.start,sessions:eq.length,returnPct:100*((eq.at(-1)?.value??p.start)/p.start-1),maxDrawdownPct:100*Math.min(0,...eq.map(e=>e.drawdown)),worstDayPct:100*(daily[0]??0),tailMeanPct:100*daily.slice(0,n).reduce((a,b)=>a+b,0)/n,longestUnderwaterSessions:longest,averageCashPct:eq.length?eq.reduce((a,e)=>a+e.cash/e.value,0)/eq.length*100:null,trades:trades.length,turnover:trades.reduce((a,e)=>a+e.qty*e.price,0)/p.start,fees:trades.reduce((a,e)=>a+e.fee,0),dividendRights:p.ledger.filter(e=>e.type==='DIVIDEND_ENTITLEMENT').reduce((a,e)=>a+e.gross,0),riskOff:!!p.riskOff,positions:Object.entries(p.positions).filter(([,q])=>q>0).map(([ticker,qty])=>({ticker,qty})),skips:p.ledger.filter(e=>e.type==='SKIP').reduce((a,e)=>(a[e.code??'OTHER']=(a[e.code??'OTHER']||0)+1,a),{}),curve:eq};
 }
-function simulate(snapshot,dividends,config,dates){
+function simulate(snapshot,dividends,config,dates,summarize=metrics){
  let state=null,failure=null;
  for(const date of dates){
   const now=new Date(addDays(date,1)+'T01:00:00Z');
@@ -22,7 +22,7 @@ function simulate(snapshot,dividends,config,dates){
   state=advance(state,snap,div,config,now,'run',createStrategy(snap,div,config,now));
   if(state.health.status!=='ok'){failure={date,...state.health};break}
  }
- return {from:dates[0],requestedTo:dates.at(-1),to:state?.lastSession,complete:!failure&&!!dates.length,failure,portfolios:state?state.portfolios.map(metrics):[]};
+ return {from:dates[0],requestedTo:dates.at(-1),to:state?.lastSession,complete:!failure&&!!dates.length,failure,portfolios:state?state.portfolios.map(summarize):[]};
 }
 function run(){
  const snapshot=JSON.parse(fs.readFileSync('data/latest.json')),dividends=JSON.parse(fs.readFileSync('data/dividends.json'));
