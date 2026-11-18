@@ -145,3 +145,9 @@ body{margin:0;min-width:0;background:#111c26;-webkit-text-size-adjust:100%}
 #paperbot-app .pc-stock{flex-wrap:wrap;row-gap:0}
 #paperbot-app .pc-company-name{white-space:normal;overflow-wrap:anywhere}
 #paperbot-app .pc-subtabs{overflow-x:auto}
+
+#paperbot-app .pc-position-facts{font-size:11px;line-height:1.35;padding:2px 0}
+#paperbot-app .pc-position-facts>span{display:block;margin:1px 0}
+#paperbot-app .pc-return-badge{display:inline-block;white-space:nowrap;border-radius:999px;padding:1px 5px;background:var(--pc-line);color:var(--pc-ink);font-weight:600}
+#paperbot-app .pc-return-up{background:#22634b;color:#e2fff2}
+#paperbot-app .pc-return-down{background:#873e42;color:#fff0f0}

@@ -17,7 +17,7 @@ test('mobile shell uses real source data, isolates books and never advances trad
  click({action:'view',view:'stocks'});assert.equal((root.innerHTML.match(/class="pc-stock"/g)||[]).length,18);assert.match(root.innerHTML,/Открытые позиции · 0/);
  paper.portfolios[1].positions.LKOH=1;
  click({action:'view',view:'stocks'});
- assert.match(root.innerHTML,/pc-position-facts/);assert.match(root.innerHTML,/Средняя покупка 100/);assert.match(root.innerHTML,/лот неизвестен/);
+ assert.match(root.innerHTML,/pc-position-facts/);assert.match(root.innerHTML,/ср. покупка 100/);assert.match(root.innerHTML,/лот неизвестен/);assert.match(root.innerHTML,/pc-return-badge pc-return-up/);assert.match(root.innerHTML,/Последняя покупка 02.01.01/);assert.doesNotMatch(root.innerHTML,/без комиссий и дивидендов/);
  click({action:'subtab',key:'stockTab',value:'held'});assert.equal((root.innerHTML.match(/class="pc-stock"/g)||[]).length,1);
  click({action:'view',view:'overview'});click({action:'subtab',key:'overviewTab',value:'positions'});assert.match(root.innerHTML,/pc-position-facts/);
  delete paper.portfolios[1].positions.LKOH;
