@@ -15,6 +15,12 @@ test('mobile shell uses real source data, isolates books and never advances trad
  click({action:'view',view:'journal'});assert.match(root.innerHTML,/Сигнал · SBER/);assert.match(root.innerHTML,/15:14 МСК/);assert.ok(root.innerHTML.includes('v'+require('../config.js').version));
  click({action:'capital',capital:'100000'});assert.match(root.innerHTML,/Покупка · LKOH/);assert.doesNotMatch(root.innerHTML,/Сигнал · SBER/);
  click({action:'view',view:'stocks'});assert.equal((root.innerHTML.match(/class="pc-stock"/g)||[]).length,18);assert.match(root.innerHTML,/Открытые позиции · 0/);
+ paper.portfolios[1].positions.LKOH=1;
+ click({action:'view',view:'stocks'});
+ assert.match(root.innerHTML,/pc-position-facts/);assert.match(root.innerHTML,/Средняя покупка 100/);assert.match(root.innerHTML,/лот неизвестен/);
+ click({action:'subtab',key:'stockTab',value:'held'});assert.equal((root.innerHTML.match(/class="pc-stock"/g)||[]).length,1);
+ click({action:'view',view:'overview'});click({action:'subtab',key:'overviewTab',value:'positions'});assert.match(root.innerHTML,/pc-position-facts/);
+ delete paper.portfolios[1].positions.LKOH;
  click({action:'view',view:'payments'});assert.match(root.innerHTML,/10 ₽/);
  click({action:'view',view:'more'});assert.match(root.innerHTML,/15:11 МСК/);assert.match(root.innerHTML,/15:12 МСК/);
  click({action:'refresh'});await new Promise(setImmediate);assert.match(root.innerHTML,/4 \/ 4/);assert.ok(fetches>=3);assert.equal(JSON.stringify(paper),before);
@@ -35,3 +41,11 @@ test('week axis includes all seven calendar days and Russian weekdays, even week
 test('month axis places every odd day above and every even day below',()=>{const ticks=C.chartTicks('2001-01-01','2001-01-31',30);assert.equal(ticks.filter(t=>t.axisRow===0).length,16);assert.equal(ticks.filter(t=>t.axisRow===1).length,15);assert.ok(ticks.every(t=>t.showLabel&&t.axisRow===(Number(t.label)%2?0:1)))});
 
 test('annual dividend percent uses the same historical year-start base and never a future price',()=>{const s={series:{SBER:[{date:'2024-12-30',close:100},{date:'2025-01-03',close:999}]}};assert.deepEqual(C.annualDividendBase(s,'SBER',2025),{price:100,date:'2024-12-30'});assert.equal(C.annualDividendBase(s,'SBER',2026),null);assert.equal(C.annualDividendBase(s,'UNKNOWN',2025),null)});
+
+test('journal purchase and sale filters keep only executed trades in reverse order',()=>{
+ const p={ledger:[{type:'BUY',id:1},{type:'SIGNAL',id:2},{type:'SELL',id:3},{type:'BUY',id:4},{type:'SKIP',id:5}]};
+ assert.deepEqual(C.ledger(p,'buys').map(e=>e.id),[4,1]);
+ assert.deepEqual(C.ledger(p,'sells').map(e=>e.id),[3]);
+ assert.deepEqual(C.ledger(p,'trades').map(e=>e.id),[4,3,1]);
+ assert.deepEqual(p.ledger.map(e=>e.id),[1,2,3,4,5]);
+});
